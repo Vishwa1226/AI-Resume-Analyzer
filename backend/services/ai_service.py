@@ -12,7 +12,6 @@ model = genai.GenerativeModel(
     "gemini-2.5-flash"
 )
 
-
 def analyze_resume(resume_text):
 
     prompt = f"""
@@ -32,5 +31,32 @@ def analyze_resume(resume_text):
     """
 
     response = model.generate_content(prompt)
+
+    return response.text
+
+
+# ats feedback
+def get_ats_feedback(resume_text):
+
+    prompt = f"""
+    You are an ATS expert.
+
+    Analyze this resume.
+
+    Give:
+
+    1. ATS strengths
+    2. Missing keywords
+    3. ATS weaknesses
+    4. ATS improvement suggestions
+
+    Resume:
+
+    {resume_text}
+    """
+
+    response = model.generate_content(
+        prompt
+    )
 
     return response.text
